@@ -7,6 +7,7 @@ import { createTables } from "./config/database";
 import recipeRoutes from "./routes/recipes.routes";
 import categoryRoutes from "./routes/categories.routes";
 import ingredientRoutes from "./routes/ingredients.routes";
+import { authMiddleware } from "./middleware/auth.middleware";
 require("dotenv").config();
 
 const app = express();
@@ -24,7 +25,7 @@ app.use(
   })
 );
 
-app.use("/api/recipes", recipeRoutes);
+app.use("/api/recipes", authMiddleware, recipeRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/ingredients", ingredientRoutes);
 
